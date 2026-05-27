@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 import { PolymarketOrderExecutor } from "./Order";
 
 // 配置参数
+let prefix = "btc-updown-5m-";
 let TARGET_SLUG = "btc-updown-5m-"; 
 let time:any = DateTime.now().setZone("America/New_York");
 let minuteTime:any = Math.floor(time/1000);
@@ -144,7 +145,7 @@ export class PolymarketPollingEngine {
         console.log("this.slug:"+this.slug);
         console.log("timestampNow:"+timestamp11);
         if(this.slug!=timestamp11){
-          this.slug = TARGET_SLUG + timestamp11;
+          this.slug = prefix + timestamp11;
           this.tokens = await this.fetchDynamicTokens();
           setTimeout(() => this.executePoll(), this.intervalMs);
         }
@@ -256,14 +257,14 @@ export class PolymarketPollingEngine {
         let time : any = DateTime.now().setZone("America/New_York");
         let timestamp11 :any = Math.floor(time / 1000);
         let nextSlug = parseFloat(slug)+300;
-        GAMMA_API=TARGET_SLUG + nextSlug;
+        GAMMA_API=prefix + nextSlug;
         try {
             console.log('市场slug：'+nextSlug);
             console.log("gamma_api:"+GAMMA_API);
             const response = await axios.get(GAMMA_API, {
                 params: {
                     // slug: this.slug,
-                    _ts: timestamp11
+                    //_ts: timestamp11
                 }
             });
 
