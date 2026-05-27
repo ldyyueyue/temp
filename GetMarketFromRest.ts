@@ -144,7 +144,7 @@ export class PolymarketPollingEngine {
         console.log("this.slug:"+this.slug);
         console.log("timestampNow:"+timestamp11);
         if(this.slug!=timestamp11){
-          this.slug = timestamp11;
+          this.slug = TARGET_SLUG + timestamp11;
           this.tokens = await this.fetchDynamicTokens();
           setTimeout(() => this.executePoll(), this.intervalMs);
         }
@@ -256,7 +256,7 @@ export class PolymarketPollingEngine {
         let time : any = DateTime.now().setZone("America/New_York");
         let timestamp11 :any = Math.floor(time / 1000);
         let nextSlug = parseFloat(slug)+300;
-        GAMMA_API+=nextSlug;
+        GAMMA_API=TARGET_SLUG + nextSlug;
         try {
             console.log('市场slug：'+nextSlug);
             console.log("gamma_api:"+GAMMA_API);
